@@ -125,7 +125,7 @@ public class smartQuickSort {
 
     /*Verify merge sort is working*/
     static boolean verifySort(long[] list){
-
+        //using the insert sort algorithm to check if it's sorting correctly
         boolean sorted = true;
         int i = 0;
         //loop through list
@@ -177,7 +177,7 @@ public class smartQuickSort {
 
         public static long[] QuickSortAlg(long[] list) {
 
-
+            //pass in the array, low index and high index and return the sorted array
                 list = QuickSortWorker(list, 0, list.length-1);
 
 
@@ -185,38 +185,50 @@ public class smartQuickSort {
         }
 
         public static long[] QuickSortWorker(long[] list, int lo, int high){
-
+            //check if low index is higher than or equal to high index
+            //if it is the same, there is only one element in the array so return the array
+            //if it is higher, then we have an empty high list, return the array
             if(lo >= high){
                 return list;
             }
             else{
+                //set the pivot index to the middle index
                 int pivotIndex = lo + (high - lo)/2;
+                //switch the values at the lo and pivot index
                 long tempV = list[lo];
                 list[lo] = list[pivotIndex];
                 list[pivotIndex] = tempV;
                 pivotIndex = lo;
                 int nextHi = high;
 
+                //while the pivot index is less than the hi index
                 while(pivotIndex < nextHi){
+                    //if the value at the pivot index + 1 is less than or equal to the
+                    //value at the pivot index, swap the two values
                     if(list[pivotIndex + 1] <= list[pivotIndex]){
                         long tempV2 = list[pivotIndex + 1];
                         list[pivotIndex + 1] = list[pivotIndex];
                         list[pivotIndex] = tempV2;
+                        //increment the pivot Index
                         pivotIndex++;
                     }
                     else{
-
+                        //if the value at the pivot index + 1 is not less than or equal to the
+                        //value at the pivot index, swap the value at pivot index + 1 and value at
+                        // the nextHi index
                         long tempV3 = list[pivotIndex + 1];
                         list[pivotIndex + 1] = list[nextHi];
                         list[nextHi] = tempV3;
-
+                        //decrement the high index
                         nextHi--;
                     }
                 }
+                //run the quick sort algorithm on the lower half of the list through recursion
                 QuickSortWorker(list, lo, pivotIndex-1);
+                //run the quick sort algorithm on the upper half of the list through recursion
                 QuickSortWorker(list, nextHi + 1, high);
             }
-
+            //return the sorted list
             return list;
         }
 
